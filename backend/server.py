@@ -125,21 +125,18 @@ async def create_contact(payload: ContactCreate):
     await db.contact_submissions.insert_one(doc)
 
     email_status = "queued"
-    email_error = None
     try:
         result = await send_contact_email(submission)
         email_status = "sent"
         logger.info(f"Contact email sent: {result}")
     except Exception as e:
         email_status = "stored_only"
-        email_error = str(e)
         logger.error(f"Resend send failed (submission still saved): {e}")
 
     return {
         "ok": True,
         "id": submission.id,
         "email_status": email_status,
-        "email_error": email_error,
     }
 
 
