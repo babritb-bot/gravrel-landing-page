@@ -2,114 +2,349 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    margin: 0;
-    font-family:
-        -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-        "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-        sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
-code {
-    font-family:
-        source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+:root {
+    --gr-bg: #050708;
+    --gr-bg-2: #0a0f10;
+    --gr-panel: #0f1419;
+    --gr-panel-2: #131a20;
+    --gr-border: rgba(255, 255, 255, 0.06);
+    --gr-border-strong: rgba(255, 255, 255, 0.12);
+    --gr-text: #e6edf0;
+    --gr-text-dim: #8a96a0;
+    --gr-text-mute: #5b6770;
+    --gr-green: #10b981;
+    --gr-green-bright: #14d399;
+    --gr-green-glow: rgba(16, 185, 129, 0.35);
+    --gr-blue: #3b82f6;
+    --gr-purple: #a855f7;
+    --gr-pink: #ec4899;
+    --gr-yellow: #eab308;
 }
 
 @layer base {
     :root {
-        --background: 0 0% 100%;
-        --foreground: 0 0% 3.9%;
-        --card: 0 0% 100%;
-        --card-foreground: 0 0% 3.9%;
-        --popover: 0 0% 100%;
-        --popover-foreground: 0 0% 3.9%;
-        --primary: 0 0% 9%;
-        --primary-foreground: 0 0% 98%;
-        --secondary: 0 0% 96.1%;
-        --secondary-foreground: 0 0% 9%;
-        --muted: 0 0% 96.1%;
-        --muted-foreground: 0 0% 45.1%;
-        --accent: 0 0% 96.1%;
-        --accent-foreground: 0 0% 9%;
-        --destructive: 0 84.2% 60.2%;
+        --background: 200 18% 4%;
+        --foreground: 200 12% 92%;
+        --card: 200 16% 8%;
+        --card-foreground: 200 12% 92%;
+        --popover: 200 16% 8%;
+        --popover-foreground: 200 12% 92%;
+        --primary: 158 78% 40%;
+        --primary-foreground: 0 0% 100%;
+        --secondary: 200 14% 12%;
+        --secondary-foreground: 200 12% 92%;
+        --muted: 200 14% 12%;
+        --muted-foreground: 200 8% 60%;
+        --accent: 158 78% 40%;
+        --accent-foreground: 0 0% 100%;
+        --destructive: 0 70% 55%;
         --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 89.8%;
-        --input: 0 0% 89.8%;
-        --ring: 0 0% 3.9%;
-        --chart-1: 12 76% 61%;
-        --chart-2: 173 58% 39%;
-        --chart-3: 197 37% 24%;
-        --chart-4: 43 74% 66%;
-        --chart-5: 27 87% 67%;
-        --radius: 0.5rem;
-    }
-    .dark {
-        --background: 0 0% 3.9%;
-        --foreground: 0 0% 98%;
-        --card: 0 0% 3.9%;
-        --card-foreground: 0 0% 98%;
-        --popover: 0 0% 3.9%;
-        --popover-foreground: 0 0% 98%;
-        --primary: 0 0% 98%;
-        --primary-foreground: 0 0% 9%;
-        --secondary: 0 0% 14.9%;
-        --secondary-foreground: 0 0% 98%;
-        --muted: 0 0% 14.9%;
-        --muted-foreground: 0 0% 63.9%;
-        --accent: 0 0% 14.9%;
-        --accent-foreground: 0 0% 98%;
-        --destructive: 0 62.8% 30.6%;
-        --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 14.9%;
-        --input: 0 0% 14.9%;
-        --ring: 0 0% 83.1%;
-        --chart-1: 220 70% 50%;
-        --chart-2: 160 60% 45%;
-        --chart-3: 30 80% 55%;
-        --chart-4: 280 65% 60%;
-        --chart-5: 340 75% 55%;
+        --border: 200 14% 14%;
+        --input: 200 14% 12%;
+        --ring: 158 78% 40%;
+        --radius: 0.75rem;
     }
 }
 
-@layer base {
-    * {
-        @apply border-border;
-    }
-    body {
-        @apply bg-background text-foreground;
-    }
+* {
+    box-sizing: border-box;
 }
 
-@layer base {
-    [data-debug-wrapper="true"] {
-        display: contents !important;
-    }
-
-    [data-debug-wrapper="true"] > * {
-        margin-left: inherit;
-        margin-right: inherit;
-        margin-top: inherit;
-        margin-bottom: inherit;
-        padding-left: inherit;
-        padding-right: inherit;
-        padding-top: inherit;
-        padding-bottom: inherit;
-        column-gap: inherit;
-        row-gap: inherit;
-        gap: inherit;
-        border-left-width: inherit;
-        border-right-width: inherit;
-        border-top-width: inherit;
-        border-bottom-width: inherit;
-        border-left-style: inherit;
-        border-right-style: inherit;
-        border-top-style: inherit;
-        border-bottom-style: inherit;
-        border-left-color: inherit;
-        border-right-color: inherit;
-        border-top-color: inherit;
-        border-bottom-color: inherit;
-    }
+html {
+    scroll-behavior: smooth;
 }
+
+body {
+    margin: 0;
+    background: var(--gr-bg);
+    color: var(--gr-text);
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+.font-display {
+    font-family: 'Bricolage Grotesque', 'Manrope', sans-serif;
+    letter-spacing: -0.02em;
+}
+
+.font-mono {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* === Background grain & glow === */
+.gr-grain::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.gr-bg-glow {
+    background:
+        radial-gradient(ellipse 80% 50% at 20% 0%, rgba(16, 185, 129, 0.12), transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 10%, rgba(20, 211, 153, 0.06), transparent 55%),
+        var(--gr-bg);
+}
+
+.gr-grid-bg {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 56px 56px;
+    background-position: -1px -1px;
+}
+
+/* === Buttons === */
+.btn-primary {
+    background: var(--gr-green);
+    color: #ffffff;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 0.75rem 1.5rem;
+    transition: transform 0.18s ease, box-shadow 0.25s ease, background 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 24px -8px var(--gr-green-glow);
+}
+
+.btn-primary:hover {
+    background: var(--gr-green-bright);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 32px -6px var(--gr-green-glow);
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--gr-text);
+    border: 1px solid var(--gr-border-strong);
+    border-radius: 999px;
+    padding: 0.7rem 1.4rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-ghost:hover {
+    background: var(--gr-panel-2);
+    border-color: rgba(16, 185, 129, 0.4);
+    color: var(--gr-green-bright);
+}
+
+/* === Launch Console button - eye-catching === */
+.btn-launch {
+    position: relative;
+    background: linear-gradient(135deg, var(--gr-green) 0%, var(--gr-green-bright) 100%);
+    color: #02180f;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 0.6rem 1.15rem 0.6rem 1rem;
+    font-size: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    border: 1px solid rgba(20, 211, 153, 0.5);
+    box-shadow:
+        0 0 0 2px rgba(16, 185, 129, 0.15),
+        0 8px 28px -6px rgba(16, 185, 129, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    transition: transform 0.18s ease, box-shadow 0.25s ease;
+    overflow: hidden;
+}
+
+.btn-launch::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+    transform: translateX(-100%);
+    animation: launch-shine 3.2s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.btn-launch:hover {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow:
+        0 0 0 3px rgba(16, 185, 129, 0.25),
+        0 14px 40px -6px rgba(16, 185, 129, 0.75),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.btn-launch-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: #02180f;
+    position: relative;
+}
+
+.btn-launch-dot::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 999px;
+    background: rgba(2, 24, 15, 0.5);
+    animation: pulse-ring 1.8s ease-out infinite;
+}
+
+@keyframes launch-shine {
+    0% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+    100% { transform: translateX(100%); }
+}
+
+@keyframes pulse-ring {
+    0% { transform: scale(0.6); opacity: 0.9; }
+    100% { transform: scale(1.6); opacity: 0; }
+}
+
+/* === Cards === */
+.gr-card {
+    background: var(--gr-panel);
+    border: 1px solid var(--gr-border);
+    border-radius: 18px;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.gr-card:hover {
+    border-color: rgba(16, 185, 129, 0.25);
+}
+
+.gr-stat-card {
+    background: linear-gradient(180deg, #ffffff 0%, #f5f7f6 100%);
+    color: #0a0f10;
+    border-radius: 22px;
+    padding: 1.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+}
+
+.gr-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.gr-tag-green {
+    background: rgba(16, 185, 129, 0.12);
+    color: var(--gr-green-bright);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+/* === Inputs === */
+.gr-input {
+    background: var(--gr-panel-2);
+    border: 1px solid var(--gr-border-strong);
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    color: var(--gr-text);
+    width: 100%;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.gr-input::placeholder {
+    color: var(--gr-text-mute);
+}
+
+.gr-input:focus {
+    outline: none;
+    border-color: var(--gr-green);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+/* === Nav === */
+.nav-link {
+    color: var(--gr-text-dim);
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    transition: color 0.18s ease, background 0.18s ease;
+}
+
+.nav-link:hover {
+    color: var(--gr-text);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* === Live dot === */
+.live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--gr-green-bright);
+    position: relative;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
+}
+
+.live-dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    background: var(--gr-green-bright);
+    animation: pulse-ring 1.8s ease-out infinite;
+}
+
+/* === Reveal on scroll === */
+.reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* === Section heading === */
+.section-eyebrow {
+    color: var(--gr-green-bright);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+/* Selection */
+::selection {
+    background: rgba(16, 185, 129, 0.35);
+    color: #ffffff;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+::-webkit-scrollbar-track { background: #050708; }
+::-webkit-scrollbar-thumb {
+    background: #1a2329;
+    border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover { background: #243038; }
+
+/* Hide spinner on number inputs */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
