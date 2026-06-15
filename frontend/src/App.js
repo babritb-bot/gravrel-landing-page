@@ -19,17 +19,23 @@ const Home = () => {
   const rootRef = useRef(null);
 
   useEffect(() => {
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) e.target.classList.add("in");
-        });
-      },
-      { threshold: 0.12 }
-    );
-    const els = rootRef.current?.querySelectorAll(".reveal") || [];
-    els.forEach((el) => obs.observe(el));
-    return () => obs.disconnect();
+    // Mark all reveal elements as visible immediately as a safe fallback.
+    const reveals = rootRef.current?.querySelectorAll(".reveal") || [];
+    reveals.forEach((el) => el.classList.add("in"));
+
+    // Optional progressive enhancement — animate sections in as they scroll into view.
+    if ("IntersectionObserver" in window) {
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) e.target.classList.add("in");
+          });
+        },
+        { threshold: 0.12 }
+      );
+      reveals.forEach((el) => obs.observe(el));
+      return () => obs.disconnect();
+    }
   }, []);
 
   return (
