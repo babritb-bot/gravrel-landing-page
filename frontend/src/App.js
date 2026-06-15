@@ -1,11 +1,15 @@
 import React, { useEffect, useRef } from "react";
 import "@/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import TaglineBar from "@/components/TaglineBar";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Stats from "@/components/Stats";
 import Services from "@/components/Services";
+import Projects from "@/components/Projects";
+import Team from "@/components/Team";
+import Testimonials from "@/components/Testimonials";
 import Certifications from "@/components/Certifications";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -30,12 +34,16 @@ const Home = () => {
 
   return (
     <div ref={rootRef} className="gr-bg-glow gr-grain min-h-screen relative">
+      <TaglineBar />
       <Navbar />
       <main className="relative z-10">
         <Hero />
         <About />
         <Stats />
         <Services />
+        <Projects />
+        <Team />
+        <Testimonials />
         <Certifications />
         <Contact />
       </main>

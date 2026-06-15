@@ -4,7 +4,8 @@ import { ArrowUpRight, Menu, X } from "lucide-react";
 const navItems = [
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
-  { label: "Certifications", href: "#certifications" },
+  { label: "Projects", href: "#projects" },
+  { label: "Team", href: "#team" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -22,7 +23,7 @@ const Navbar = () => {
   return (
     <header
       data-testid="navbar"
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+      className={`fixed lg:top-7 top-0 inset-x-0 z-50 transition-all duration-300 ${
         scrolled
           ? "bg-[rgba(5,7,8,0.78)] backdrop-blur-xl border-b border-white/5"
           : "bg-transparent"

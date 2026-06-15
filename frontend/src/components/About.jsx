@@ -8,7 +8,7 @@ const About = () => {
           <div className="lg:col-span-5 reveal">
             <div className="relative rounded-3xl overflow-hidden border border-white/5">
               <img
-                src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=656,fit=crop/LGKzknxiwRfDAFI3/img2grav-PQ0pbSis5iEFJvQv.jpg"
+                src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=900,fit=crop/LGKzknxiwRfDAFI3/gemini_generated_image_gakcoegakcoegakc-AP5Tsfp3WTDOHoxp.png"
                 alt="Gravrel green datacenter"
                 className="w-full h-full object-cover"
               />
