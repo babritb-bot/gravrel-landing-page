@@ -1,56 +1,40 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { toast } from "sonner";
 import { Mail, Phone, Send, MapPin, ArrowUpRight } from "lucide-react";
 
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
-
+const RECIPIENT = "support@gravrel.com";
 const initial = { name: "", email: "", phone: "", message: "" };
 
 const Contact = () => {
   const [form, setForm] = useState(initial);
-  const [loading, setLoading] = useState(false);
   const [newsletterEmail, setNewsletterEmail] = useState("");
-  const [newsletterLoading, setNewsletterLoading] = useState(false);
 
   const update = (k) => (e) => setForm((p) => ({ ...p, [k]: e.target.value }));
 
-  const submit = async (e) => {
+  // Pure static: open the user's mail client with a prefilled email.
+  const submit = (e) => {
     e.preventDefault();
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
       toast.error("Please fill in name, email and message.");
       return;
     }
-    setLoading(true);
-    try {
-      const { data } = await axios.post(`${API}/contact`, form);
-      if (data?.ok) {
-        toast.success("Message sent! We'll get back to you within 24h.");
-        setForm(initial);
-      } else {
-        toast.error("Something went wrong. Please try again.");
-      }
-    } catch (err) {
-      const msg = err?.response?.data?.detail || "Failed to send. Try again.";
-      toast.error(typeof msg === "string" ? msg : "Failed to send.");
-    } finally {
-      setLoading(false);
-    }
+    const subject = encodeURIComponent(`New Gravrel lead — ${form.name}`);
+    const body = encodeURIComponent(
+      `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone || "—"}\n\nMessage:\n${form.message}`
+    );
+    window.location.href = `mailto:${RECIPIENT}?subject=${subject}&body=${body}`;
+    toast.success("Opening your mail app — just hit send!");
+    setForm(initial);
   };
 
-  const subscribe = async (e) => {
+  const subscribe = (e) => {
     e.preventDefault();
     if (!newsletterEmail.trim()) return;
-    setNewsletterLoading(true);
-    try {
-      await axios.post(`${API}/newsletter`, { email: newsletterEmail });
-      toast.success("Subscribed! Eco-updates coming your way.");
-      setNewsletterEmail("");
-    } catch (err) {
-      toast.error("Could not subscribe. Please try again.");
-    } finally {
-      setNewsletterLoading(false);
-    }
+    const subject = encodeURIComponent("Newsletter signup — gravrel.com");
+    const body = encodeURIComponent(`Please add this email to the newsletter:\n\n${newsletterEmail}`);
+    window.location.href = `mailto:${RECIPIENT}?subject=${subject}&body=${body}`;
+    toast.success("Opening your mail app — just hit send!");
+    setNewsletterEmail("");
   };
 
   return (
@@ -83,10 +67,9 @@ const Contact = () => {
                 data-testid="newsletter-subscribe-btn"
                 type="submit"
                 className="btn-primary justify-center"
-                disabled={newsletterLoading}
               >
-                {newsletterLoading ? "Subscribing…" : "Subscribe"}
-                {!newsletterLoading && <ArrowUpRight size={16} strokeWidth={2.5} />}
+                Subscribe
+                <ArrowUpRight size={16} strokeWidth={2.5} />
               </button>
             </form>
           </div>
@@ -109,7 +92,7 @@ const Contact = () => {
 
             <div className="space-y-4">
               <a
-                href="mailto:support@gravrel.com"
+                href={`mailto:${RECIPIENT}`}
                 data-testid="contact-email-link"
                 className="flex items-center gap-4 group"
               >
@@ -227,17 +210,15 @@ const Contact = () => {
 
               <div className="flex items-center justify-between pt-2 gap-3 flex-wrap">
                 <p className="text-xs text-[var(--gr-text-mute)] max-w-sm">
-                  We typically reply within 24 hours. Your details are stored securely in
-                  Bhubaneswar, India.
+                  Submitting opens your mail app with the message pre-filled — just hit send.
                 </p>
                 <button
                   data-testid="contact-submit-btn"
                   type="submit"
-                  disabled={loading}
                   className="btn-primary"
                 >
-                  {loading ? "Sending…" : "Send Message"}
-                  {!loading && <Send size={15} strokeWidth={2.5} />}
+                  Send Message
+                  <Send size={15} strokeWidth={2.5} />
                 </button>
               </div>
             </form>
