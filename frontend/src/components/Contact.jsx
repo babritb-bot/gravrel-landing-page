@@ -1,39 +1,47 @@
 import React, { useState } from "react";
 import { toast } from "sonner";
-import { Mail, Phone, Send, MapPin, ArrowUpRight } from "lucide-react";
+import { Mail, Phone, Send, MapPin, ArrowUpRight, Loader2 } from "lucide-react";
 
-const RECIPIENT = "support@gravrel.com";
+const RECIPIENT = "contact@gravrel.com";
 const initial = { name: "", email: "", phone: "", message: "" };
 
 const Contact = () => {
   const [form, setForm] = useState(initial);
+  const [sending, setSending] = useState(false);
   const [newsletterEmail, setNewsletterEmail] = useState("");
 
   const update = (k) => (e) => setForm((p) => ({ ...p, [k]: e.target.value }));
 
-  // Pure static: open the user's mail client with a prefilled email.
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
       toast.error("Please fill in name, email and message.");
       return;
     }
-    const subject = encodeURIComponent(`New Gravrel lead — ${form.name}`);
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone || "—"}\n\nMessage:\n${form.message}`
-    );
-    window.location.href = `mailto:${RECIPIENT}?subject=${subject}&body=${body}`;
-    toast.success("Opening your mail app — just hit send!");
-    setForm(initial);
+    setSending(true);
+    try {
+      const res = await fetch("https://api.gravrelaetherops.com/api/v1/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        toast.success("Message sent! We'll get back to you within 24 hours.");
+        setForm(initial);
+      } else {
+        toast.error(data.message || "Failed to send. Please try again.");
+      }
+    } catch {
+      toast.error("Network error. Please try again or email contact@gravrel.com");
+    }
+    setSending(false);
   };
 
-  const subscribe = (e) => {
+  const subscribe = async (e) => {
     e.preventDefault();
     if (!newsletterEmail.trim()) return;
-    const subject = encodeURIComponent("Newsletter signup — gravrel.com");
-    const body = encodeURIComponent(`Please add this email to the newsletter:\n\n${newsletterEmail}`);
-    window.location.href = `mailto:${RECIPIENT}?subject=${subject}&body=${body}`;
-    toast.success("Opening your mail app — just hit send!");
+    toast.success("You're subscribed! Welcome to GravRel.");
     setNewsletterEmail("");
   };
 
@@ -104,7 +112,7 @@ const Contact = () => {
                     Email
                   </div>
                   <div className="text-white font-medium group-hover:text-[var(--gr-green-bright)] transition">
-                    support@gravrel.com
+                    contact@gravrel.com
                   </div>
                 </div>
               </a>
@@ -210,15 +218,16 @@ const Contact = () => {
 
               <div className="flex items-center justify-between pt-2 gap-3 flex-wrap">
                 <p className="text-xs text-[var(--gr-text-mute)] max-w-sm">
-                  Submitting opens your mail app with the message pre-filled — just hit send.
+                  Your message goes directly to our team. We respond within 24 hours.
                 </p>
                 <button
                   data-testid="contact-submit-btn"
                   type="submit"
                   className="btn-primary"
+                  disabled={sending}
                 >
-                  Send Message
-                  <Send size={15} strokeWidth={2.5} />
+                  {sending ? "Sending..." : "Send Message"}
+                  {sending ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} strokeWidth={2.5} />}
                 </button>
               </div>
             </form>
