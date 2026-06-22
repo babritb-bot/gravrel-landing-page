@@ -14,6 +14,7 @@ import Certifications from "@/components/Certifications";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import { Toaster } from "sonner";
+import Waitlist from "./components/Waitlist";
 
 const Home = () => {
   const rootRef = useRef(null);
@@ -51,6 +52,7 @@ const Home = () => {
         <Team />
         <Testimonials />
         <Certifications />
+	<Waitlist />
         <Contact />
       </main>
       <Footer />
