@@ -15,6 +15,7 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import { Toaster } from "sonner";
 import Waitlist from "./components/Waitlist";
+import ChatWidget from "./components/ChatWidget";
 
 const Home = () => {
   const rootRef = useRef(null);
@@ -68,6 +69,7 @@ function App() {
           <Route path="/" element={<Home />} />
         </Routes>
       </BrowserRouter>
+      <ChatWidget />	
       <Toaster
         theme="dark"
         position="bottom-right"
