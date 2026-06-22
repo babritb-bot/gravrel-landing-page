@@ -183,7 +183,7 @@ const Navbar = () => {
         {/* Right side actions */}
         <div className="flex items-center gap-2">
           <a
-            href="https://gravrelaetherops.com"
+            href="https://www.gravrelaetherops.com"
             target="_blank"
             rel="noopener noreferrer"
             data-testid="launch-console-btn"
@@ -238,7 +238,7 @@ const Navbar = () => {
             </a>
 
             <a
-              href="https://gravrelaetherops.com"
+              href="https://www.gravrelaetherops.com"
               target="_blank"
               rel="noopener noreferrer"
               data-testid="launch-console-btn-mobile"
