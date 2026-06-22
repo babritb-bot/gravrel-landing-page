@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X, Rocket } from "lucide-react";
 
 const navItems = [
   { label: "About", href: "#about" },
@@ -18,6 +18,115 @@ const Navbar = () => {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Inject keyframes once
+  useEffect(() => {
+    if (document.getElementById('gravrel-waitlist-anim')) return;
+    const style = document.createElement('style');
+    style.id = 'gravrel-waitlist-anim';
+    style.textContent = `
+      @keyframes gr-shimmer {
+        0% { background-position: -200% center; }
+        100% { background-position: 200% center; }
+      }
+      @keyframes gr-pulse-glow {
+        0%, 100% { box-shadow: 0 0 8px rgba(16,185,129,0.4), 0 0 20px rgba(16,185,129,0.15); }
+        50% { box-shadow: 0 0 16px rgba(16,185,129,0.7), 0 0 40px rgba(16,185,129,0.3); }
+      }
+      @keyframes gr-bounce-soft {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-2px); }
+      }
+      @keyframes gr-dot-blink {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.4; transform: scale(0.7); }
+      }
+      .gr-waitlist-btn {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 20px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 0.3px;
+        color: #ffffff;
+        background: linear-gradient(135deg, #10b981, #1D9E75, #059669);
+        background-size: 200% 200%;
+        border: 1px solid rgba(16,185,129,0.5);
+        cursor: pointer;
+        text-decoration: none;
+        overflow: hidden;
+        transition: transform 0.2s, border-color 0.2s;
+        animation: gr-pulse-glow 2s ease-in-out infinite, gr-bounce-soft 3s ease-in-out infinite;
+      }
+      .gr-waitlist-btn:hover {
+        transform: translateY(-1px) scale(1.03);
+        border-color: rgba(16,185,129,0.9);
+      }
+      .gr-waitlist-btn::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: linear-gradient(
+          110deg,
+          transparent 20%,
+          rgba(255,255,255,0.15) 40%,
+          rgba(255,255,255,0.3) 50%,
+          rgba(255,255,255,0.15) 60%,
+          transparent 80%
+        );
+        background-size: 200% 100%;
+        animation: gr-shimmer 2.5s ease-in-out infinite;
+        border-radius: inherit;
+        pointer-events: none;
+      }
+      .gr-waitlist-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #ffffff;
+        animation: gr-dot-blink 1.5s ease-in-out infinite;
+        flex-shrink: 0;
+      }
+      .gr-waitlist-btn-mobile {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 22px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 14px;
+        color: #ffffff;
+        background: linear-gradient(135deg, #10b981, #1D9E75, #059669);
+        border: 1px solid rgba(16,185,129,0.5);
+        cursor: pointer;
+        text-decoration: none;
+        overflow: hidden;
+        animation: gr-pulse-glow 2s ease-in-out infinite;
+      }
+      .gr-waitlist-btn-mobile::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: linear-gradient(
+          110deg,
+          transparent 20%,
+          rgba(255,255,255,0.15) 40%,
+          rgba(255,255,255,0.3) 50%,
+          rgba(255,255,255,0.15) 60%,
+          transparent 80%
+        );
+        background-size: 200% 100%;
+        animation: gr-shimmer 2.5s ease-in-out infinite;
+        border-radius: inherit;
+        pointer-events: none;
+      }
+    `;
+    document.head.appendChild(style);
   }, []);
 
   return (
@@ -58,6 +167,17 @@ const Navbar = () => {
               {it.label}
             </a>
           ))}
+
+          {/* ★ Shiny Waitlist Button */}
+          <a
+            href="#waitlist"
+            data-testid="nav-waitlist"
+            className="gr-waitlist-btn ml-2"
+          >
+            <span className="gr-waitlist-dot" />
+            <span style={{ position: 'relative', zIndex: 1 }}>Join Waitlist</span>
+            <Rocket size={14} strokeWidth={2.5} style={{ position: 'relative', zIndex: 1 }} />
+          </a>
         </nav>
 
         {/* Right side actions */}
@@ -104,6 +224,19 @@ const Navbar = () => {
                 {it.label}
               </a>
             ))}
+
+            {/* ★ Mobile Waitlist Button */}
+            <a
+              href="#waitlist"
+              onClick={() => setOpen(false)}
+              data-testid="nav-waitlist-mobile"
+              className="gr-waitlist-btn-mobile w-fit mt-3"
+            >
+              <span className="gr-waitlist-dot" />
+              <span style={{ position: 'relative', zIndex: 1 }}>Join Waitlist</span>
+              <Rocket size={14} strokeWidth={2.5} style={{ position: 'relative', zIndex: 1 }} />
+            </a>
+
             <a
               href="https://gravrelaetherops.com"
               target="_blank"
